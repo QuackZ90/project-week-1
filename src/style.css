@@ -1,0 +1,38 @@
+*{
+    font-size:20px;
+}
+
+div, form{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    font-family: 'helvetica', 'arial', 'sans-serif';
+}
+
+form{
+    width:100%;
+}
+
+#clock-face{
+    width: 250px;
+    height: 250px;
+    border:5px solid black;
+    border-radius:100%;
+    justify-content: center;
+}
+
+#countdown-timer{
+    font-size:50px;
+}
+
+input[type=button]{
+    width: 200px;
+    height: 70px;
+    border-radius:20px;
+    display:block;
+    margin: 10px;
+}
+
+#time-log{
+    margin: 10px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/style.css">
+    <script src="./src/index.js" defer></script>
+    <title>Study Timer</title>
+</head>
+<body>
+    <main>
+        <div>
+            <h1>Study Countdown Timer</h1>
+        </div>
+        <div>
+            <div id = "clock-face">
+                <div id = "countdown-timer">
+                    00:00:00
+                </div>
+            </div>
+        </div>
+        <div id="time-log">
+            Start Time:
+        </div>
+        <div id = "options">
+            <form>
+                <span>
+                    <label for="duration">Duration:</label>
+                    <select name="duration" id="duration">
+                        <option value = 0.016666>1 min</option>
+                        <option value = 0.25>15 mins</option>
+                        <option value = 0.5>30 mins</option>
+                        <option value = 0.75>45 mins</option>
+                        <option value = 1>1 hour</option>
+                    </select>
+                </span>
+                <input type="button" value = "START" id = "start">
+                <input type="button" value = "PAUSE" id = "pause">
+                <input type="button" value = "RESET" id = "stop">
+            </form>
+        </div>
+
+    </main>
+</body>
+</html>
