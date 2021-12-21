@@ -14,8 +14,6 @@ class Timer{
         this.#startTime = new Date(startTime);
         this.#stopTime = new Date(stopTime);
         this.#durationLeftInSeconds = this.durationLeftInSeconds;
-        console.log(this.#durationLeftInSeconds);
-        console.log(this.display);
         this.pauseBtn.disabled=true;
         this.stopBtn.disabled =true;
     }
@@ -111,7 +109,11 @@ class Timer{
             if (this.durationLeftInSeconds===0){
                 clearInterval(this.#countdownID);
                 console.log("Countdown ends.")
-                alert("Time is Up!");
+                if (confirm("Time's Up!\nClick OK to remove completed items from your to do list.\nClick Cancel to manually update your to do list.")){
+                    toDo.clearCheckedItems();
+                    toDo.refreshToDoList();
+                }
+
 
                 this.pauseBtn.disabled = true;
                 this.stopBtn.disabled = true;
@@ -126,22 +128,95 @@ class Timer{
 
 }
 
+class ToDoList{
+
+    #taskID = 0;
+
+    #toDoList={
+        pending:[],
+        completed:[],
+    };
+
+    constructor(inputField, displayArea){
+        this.inputField = inputField;
+        this.displayArea = displayArea;
+    }
+
+    updateToDoList(){
+
+        if (this.inputField.value){
+            const arr = this.inputField.value.split(/[;\n]/).map(str=>str.trim()).filter(str=>str);
+            this.createItems(arr);
+        }
+
+        this.inputField.value = "";
+
+        this.clearCheckedItems();
+
+        console.log(this.#toDoList);
+
+        this.refreshToDoList();
+    }
+
+    createItems(arr){
+        
+        for (let item of arr){
+            const span = document.createElement("span");
+            const checkbox = document.createElement("input");
+            const label = document.createElement("label");
+            checkbox.type = "checkbox";
+            checkbox.name = item;
+            checkbox.className = "to-do-item";
+            checkbox.id = "a"+this.#taskID;
+            label.innerText=item;
+            label.setAttribute("for","a"+this.#taskID);
+            label.className = "to-do-item";
+            this.#taskID++;
+            span.appendChild(checkbox);
+            span.appendChild(label);
+            this.#toDoList["pending"].push(span);
+        }
+    }
+
+    clearCheckedItems(){
+        for (let i in this.#toDoList["pending"]){
+            if (this.#toDoList["pending"][i].querySelector("input[type='checkbox']").checked){
+                this.#toDoList["completed"].push(this.#toDoList["pending"][i]);
+            }
+        }
+            this.#toDoList["pending"] = this.#toDoList["pending"].filter(item=>!item.querySelector("input[type='checkbox']").checked);
+    }
+
+    refreshToDoList(){
+        this.displayArea.innerText="";
+        for (let item of this.#toDoList["pending"]){
+            this.displayArea.appendChild(item);
+        }
+    }
+}
+
+
 const timerDisplay = document.querySelector("#countdown-timer");
 const startButton = document.querySelector('#start');
 const pauseButton = document.querySelector('#pause');
 const stopButton = document.querySelector('#stop');
-const timer = new Timer(timerDisplay, startButton ,pauseButton, stopButton);
 const countdownSelector = document.querySelector("#duration");
 const timeLog = document.querySelector("#time-log");
 
+const toDoInput = document.querySelector("#to-do-textarea");
+const toDoList = document.querySelector("#to-do-list");
+console.log(toDoList);
+const toDoButton = document.querySelector("#to-do-submit");
 
-window.onload=()=>{
+const timer = new Timer(timerDisplay, startButton ,pauseButton, stopButton);
+const toDo = new ToDoList(toDoInput, toDoList);
 
-};
+
+toDoButton.addEventListener("click", ()=>{toDo.updateToDoList();});
 
 startButton.addEventListener("click",()=>{
     timer.timeStart(countdownSelector.value);
-    timeLog.innerText = `Start Time: ${timer.startTime}`;
+    timeLog.innerText = `Start Time: ${timer.startTime.getHours()}:${timer.startTime.getMinutes()}:${timer.startTime.getSeconds()}`;
 });
 
 pauseButton.addEventListener("click", ()=>{timer.timePause();});

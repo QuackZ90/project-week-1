@@ -9,36 +9,54 @@
     <title>Study Timer</title>
 </head>
 <body>
-    <main>
+    <header>
         <div>
             <h1>Study Countdown Timer</h1>
         </div>
-        <div>
-            <div id = "clock-face">
-                <div id = "countdown-timer">
-                    00:00:00
+    </header>
+    <main>
+        <div id ="main">
+            <div id = "timer">
+                <div>
+                    <div id = "clock-face">
+                        <div id = "countdown-timer">
+                            00:00:00
+                        </div>
+                    </div>
+                </div>
+                <div id="time-log">
+                    Start Time:
+                </div>
+                <div id = "options">
+                    <form>
+                        <span>
+                            <label for="duration">Duration:</label>
+                            <select name="duration" id="duration">
+                                <option value = 0.016666>1 min</option>
+                                <option value = 0.25>15 mins</option>
+                                <option value = 0.5>30 mins</option>
+                                <option value = 0.75>45 mins</option>
+                                <option value = 1>1 hour</option>
+                            </select>
+                        </span>
+                        <input type="button" value = "START" id = "start">
+                        <input type="button" value = "PAUSE" id = "pause">
+                        <input type="button" value = "RESET" id = "stop">
+                    </form>
                 </div>
             </div>
-        </div>
-        <div id="time-log">
-            Start Time:
-        </div>
-        <div id = "options">
-            <form>
-                <span>
-                    <label for="duration">Duration:</label>
-                    <select name="duration" id="duration">
-                        <option value = 0.016666>1 min</option>
-                        <option value = 0.25>15 mins</option>
-                        <option value = 0.5>30 mins</option>
-                        <option value = 0.75>45 mins</option>
-                        <option value = 1>1 hour</option>
-                    </select>
-                </span>
-                <input type="button" value = "START" id = "start">
-                <input type="button" value = "PAUSE" id = "pause">
-                <input type="button" value = "RESET" id = "stop">
-            </form>
+            <div id="to-do">
+                <h2>To Do List</h2>
+                <div id="to-do-list">
+                </div>
+                <div id="to-do-input">
+                    <label for="to-do-list-textarea">Enter items to be done during this session:</label>
+                    <textarea id="to-do-textarea" name="to-do-list-textarea" rows="5" cols="45" placeholder="Each item to be seperated by a ';' or a new line."></textarea>
+                    <input type="button" value = "Update" id = "to-do-submit">
+                </div>
+                
+            </div>
+
         </div>
 
     </main>
