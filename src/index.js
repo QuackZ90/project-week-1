@@ -97,7 +97,6 @@ class Timer{
             this.stopBtn.disabled = true;
             this.startBtn.disabled = false;
             this.pauseBtn.value = "PAUSE";
-
         }
     }
 
@@ -166,10 +165,10 @@ class ToDoList{
             const label = document.createElement("label");
             checkbox.type = "checkbox";
             checkbox.name = item;
-            checkbox.className = "to-do-item";
+            checkbox.className = "to-do-checkbox";
             checkbox.id = "a"+this.#taskID;
-            label.innerText=item;
             label.setAttribute("for","a"+this.#taskID);
+            label.innerText = item;
             label.className = "to-do-item";
             this.#taskID++;
             span.appendChild(checkbox);
@@ -208,6 +207,8 @@ const toDoList = document.querySelector("#to-do-list");
 console.log(toDoList);
 const toDoButton = document.querySelector("#to-do-submit");
 
+window.onload = ()=>toDoInput.focus();
+
 const timer = new Timer(timerDisplay, startButton ,pauseButton, stopButton);
 const toDo = new ToDoList(toDoInput, toDoList);
 
@@ -216,7 +217,7 @@ toDoButton.addEventListener("click", ()=>{toDo.updateToDoList();});
 
 startButton.addEventListener("click",()=>{
     timer.timeStart(countdownSelector.value);
-    timeLog.innerText = `Start Time: ${timer.startTime.getHours()}:${timer.startTime.getMinutes()}:${timer.startTime.getSeconds()}`;
+    timeLog.innerText = `Start Time: ${("0"+timer.startTime.getHours()).slice(-2)}:${("0"+timer.startTime.getMinutes()).slice(-2)}:${("0"+timer.startTime.getSeconds()).slice(-2)}`;
 });
 
 pauseButton.addEventListener("click", ()=>{timer.timePause();});
