@@ -1,4 +1,5 @@
 const ALARM = "./sound/bell.wav";
+/* alarm soundtrack taken from https://mixkit.co */
 
 class Timer{
     #startTime;
