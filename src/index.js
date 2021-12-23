@@ -164,8 +164,6 @@ class ToDoList{
 
         this.clearCheckedItems();
 
-        console.log(this.#toDoList);
-
         this.refreshToDoList();
     }
 
