@@ -1,3 +1,5 @@
+const ALARM = "./sound/bell.wav";
+
 class Timer{
     #startTime;
     #stopTime;
@@ -107,11 +109,13 @@ class Timer{
 
             if (this.durationLeftInSeconds===0){
                 clearInterval(this.#countdownID);
-                console.log("Countdown ends.")
-                if (confirm("Time's Up!\nClick OK to remove completed items from your to do list.\nClick Cancel to manually update your to do list.")){
-                    toDo.clearCheckedItems();
-                    toDo.refreshToDoList();
-                }
+                this.playAlarm().then(()=>{
+                    console.log("Countdown ends.");
+                    if (confirm("Time's Up!\n\nClick OK to remove completed items from your to do list.\nClick Cancel to manually update your to do list.")){
+                        toDo.clearCheckedItems();
+                        toDo.refreshToDoList();
+                    }
+                });
 
 
                 this.pauseBtn.disabled = true;
@@ -123,6 +127,14 @@ class Timer{
                 this.#pause = false;
             }
         },1000);
+    }
+
+    playAlarm(){
+        return new Promise((resolve)=>{
+        const alarm = new Audio (ALARM);
+        alarm.play();
+        alarm.onended = resolve;
+    })
     }
 
 }
